@@ -62,18 +62,24 @@ const features = [
 function DeviceUserIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
-      <circle cx={16} cy={16} r={16} fill="#A3A3A3" fillOpacity={0.2} />
+      <circle
+        cx={16}
+        cy={16}
+        r={16}
+        fill="var(--color-accent)"
+        fillOpacity={0.2}
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M16 23a3 3 0 100-6 3 3 0 000 6zm-1 2a4 4 0 00-4 4v1a2 2 0 002 2h6a2 2 0 002-2v-1a4 4 0 00-4-4h-2z"
-        fill="#737373"
+        fill="var(--color-text-secondary, var(--color-gray-500))"
       />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M5 4a4 4 0 014-4h14a4 4 0 014 4v24a4.002 4.002 0 01-3.01 3.877c-.535.136-.99-.325-.99-.877s.474-.98.959-1.244A2 2 0 0025 28V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9a2 2 0 00-2 2v24a2 2 0 001.041 1.756C8.525 30.02 9 30.448 9 31s-.455 1.013-.99.877A4.002 4.002 0 015 28V4z"
-        fill="#A3A3A3"
+        fill="var(--color-accent)"
       />
     </svg>
   )
@@ -82,16 +88,22 @@ function DeviceUserIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function DeviceNotificationIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
-      <circle cx={16} cy={16} r={16} fill="#A3A3A3" fillOpacity={0.2} />
+      <circle
+        cx={16}
+        cy={16}
+        r={16}
+        fill="var(--color-accent)"
+        fillOpacity={0.2}
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z"
-        fill="#A3A3A3"
+        fill="var(--color-accent)"
       />
       <path
         d="M9 8a2 2 0 012-2h10a2 2 0 012 2v2a2 2 0 01-2 2H11a2 2 0 01-2-2V8z"
-        fill="#737373"
+        fill="var(--color-text-secondary, var(--color-gray-500))"
       />
     </svg>
   )
@@ -111,16 +123,22 @@ function DeviceTouchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
           y2={17}
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#737373" />
-          <stop offset={1} stopColor="#D4D4D4" stopOpacity={0} />
+          <stop stopColor="var(--color-text-secondary, var(--color-gray-500))" />
+          <stop offset={1} stopColor="var(--color-border)" stopOpacity={0} />
         </linearGradient>
       </defs>
-      <circle cx={16} cy={16} r={16} fill="#A3A3A3" fillOpacity={0.2} />
+      <circle
+        cx={16}
+        cy={16}
+        r={16}
+        fill="var(--color-accent)"
+        fillOpacity={0.2}
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M5 4a4 4 0 014-4h14a4 4 0 014 4v13h-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9a2 2 0 00-2 2v24a2 2 0 002 2h4v2H9a4 4 0 01-4-4V4z"
-        fill="#A3A3A3"
+        fill="var(--color-accent)"
       />
       <path
         d="M7 22c0-4.694 3.5-8 8-8"
@@ -131,7 +149,7 @@ function DeviceTouchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
       />
       <path
         d="M21 20l.217-5.513a1.431 1.431 0 00-2.85-.226L17.5 21.5l-1.51-1.51a2.107 2.107 0 00-2.98 0 .024.024 0 00-.005.024l3.083 9.25A4 4 0 0019.883 32H25a4 4 0 004-4v-5a3 3 0 00-3-3h-5z"
-        fill="#A3A3A3"
+        fill="var(--color-accent)"
       />
     </svg>
   )
@@ -242,56 +260,56 @@ function StocksScreen(props: ScreenProps) {
               name: 'Laravel',
               price: '4,098.01',
               change: '+4.98%',
-              color: '#F9322C',
+              color: 'var(--color-secondary)',
               logo: LaravelLogo,
             },
             {
               name: 'Tuple',
               price: '5,451.10',
               change: '-3.38%',
-              color: '#5A67D8',
+              color: 'var(--color-accent)',
               logo: TupleLogo,
             },
             {
               name: 'Transistor',
               price: '4,098.41',
               change: '+6.25%',
-              color: '#2A5B94',
+              color: 'var(--color-primary)',
               logo: TransistorLogo,
             },
             {
               name: 'Diageo',
               price: '250.65',
               change: '+1.25%',
-              color: '#3320A7',
+              color: 'var(--color-success)',
               logo: DiageoLogo,
             },
             {
               name: 'StaticKit',
               price: '250.65',
               change: '-3.38%',
-              color: '#2A3034',
+              color: 'var(--color-gray-800)',
               logo: StaticKitLogo,
             },
             {
               name: 'Statamic',
               price: '5,040.85',
               change: '-3.11%',
-              color: '#0EA5E9',
+              color: 'var(--color-cyan-300)',
               logo: StatamicLogo,
             },
             {
               name: 'Mirage',
               price: '140.44',
               change: '+9.09%',
-              color: '#16A34A',
+              color: 'var(--color-success)',
               logo: MirageLogo,
             },
             {
               name: 'Reversable',
               price: '550.60',
               change: '-1.25%',
-              color: '#8D8D8D',
+              color: 'var(--color-gray-400)',
               logo: ReversableLogo,
             },
           ].map((stock) => (
@@ -352,7 +370,7 @@ function InvestScreen(props: ScreenProps) {
                     <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
                       <path
                         d="M17 15V7H9M17 7 7 17"
-                        stroke="#06B6D4"
+                        stroke="var(--color-primary)"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -446,7 +464,10 @@ function FeaturesDesktop() {
       </TabList>
       <div className="relative col-span-6">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <CircleBackground color="#13B5C8" className="animate-spin-slower" />
+          <CircleBackground
+            color="var(--color-primary)"
+            className="animate-spin-slower"
+          />
         </div>
         <PhoneFrame className="z-10 mx-auto w-full max-w-[366px]">
           <TabPanels as={Fragment}>
@@ -527,7 +548,7 @@ function FeaturesMobile() {
             <div className="relative transform overflow-hidden rounded-2xl bg-gray-800 px-5 py-6">
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <CircleBackground
-                  color="#13B5C8"
+                  color="var(--color-primary)"
                   className={featureIndex % 2 === 1 ? 'rotate-180' : undefined}
                 />
               </div>

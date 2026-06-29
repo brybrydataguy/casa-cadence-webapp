@@ -93,14 +93,18 @@ function Chart({
           <path d={`${path} V ${height + paddingY} H ${paddingX} Z`} />
         </clipPath>
         <linearGradient id={`${id}-gradient`} x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#13B5C8" />
-          <stop offset="100%" stopColor="#13B5C8" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--color-primary)" />
+          <stop
+            offset="100%"
+            stopColor="var(--color-primary)"
+            stopOpacity="0"
+          />
         </linearGradient>
       </defs>
       {[...Array(gridLines - 1).keys()].map((index) => (
         <line
           key={index}
-          stroke="#a3a3a3"
+          stroke="var(--color-border)"
           opacity="0.1"
           x1="0"
           y1={(totalHeight / gridLines) * (index + 1)}
@@ -125,7 +129,9 @@ function Chart({
         strokeLinejoin="round"
         initial={{ pathLength: 0 }}
         transition={{ duration: 1 }}
-        {...(isInView ? { stroke: '#06b6d4', animate: { pathLength: 1 } } : {})}
+        {...(isInView
+          ? { stroke: 'var(--color-primary)', animate: { pathLength: 1 } }
+          : {})}
         onUpdate={({ pathLength }) => {
           if (pathRef.current && typeof pathLength === 'number') {
             pathWidth.set(
@@ -144,7 +150,7 @@ function Chart({
             y1={points[activePointIndex].y}
             x2={totalWidth}
             y2={points[activePointIndex].y}
-            stroke="#06b6d4"
+            stroke="var(--color-primary)"
             strokeDasharray="1 3"
           />
           <circle
@@ -153,7 +159,7 @@ function Chart({
             cy={points[activePointIndex].y}
             fill="#fff"
             strokeWidth="2"
-            stroke="#06b6d4"
+            stroke="var(--color-primary)"
           />
         </>
       )}
@@ -181,7 +187,7 @@ export function AppDemo() {
             <svg viewBox="0 0 24 24" className="ml-auto h-6 w-6" fill="none">
               <path
                 d="M5 12a7 7 0 1 1 14 0 7 7 0 0 1-14 0ZM12 9v6M15 12H9"
-                stroke="#171717"
+                stroke="var(--color-text-primary)"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"

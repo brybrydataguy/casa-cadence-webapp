@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   },
   description:
     'By leveraging insights from our network of industry insiders, you’ll know exactly when to buy to maximize profit, and exactly when to sell to avoid painful losses.',
+  icons: {
+    icon: '/icon.png',
+  },
 }
 
 export default function RootLayout({
@@ -25,7 +28,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={clsx('bg-gray-50 antialiased', inter.variable)}>
+    <html
+      lang="en"
+      className={clsx('bg-background antialiased', inter.variable)}
+    >
       <body>{children}</body>
     </html>
   )

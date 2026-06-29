@@ -29,7 +29,7 @@ function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'div'>) {
       >
         <path
           d="M1025 513c0 282.77-229.23 512-512 512S1 795.77 1 513 230.23 1 513 1s512 229.23 512 512Z"
-          stroke="#D4D4D4"
+          stroke="var(--color-border)"
           strokeOpacity="0.7"
         />
         <path
@@ -46,8 +46,8 @@ function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'div'>) {
             y2="1025"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#06b6d4" />
-            <stop offset="1" stopColor="#06b6d4" stopOpacity="0" />
+            <stop stopColor="var(--color-primary)" />
+            <stop offset="1" stopColor="var(--color-primary)" stopOpacity="0" />
           </linearGradient>
         </defs>
       </svg>
@@ -59,7 +59,7 @@ function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'div'>) {
       >
         <path
           d="M913 513c0 220.914-179.086 400-400 400S113 733.914 113 513s179.086-400 400-400 400 179.086 400 400Z"
-          stroke="#D4D4D4"
+          stroke="var(--color-border)"
           strokeOpacity="0.7"
         />
         <path
@@ -76,8 +76,8 @@ function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'div'>) {
             y2="913"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#06b6d4" />
-            <stop offset="1" stopColor="#06b6d4" stopOpacity="0" />
+            <stop stopColor="var(--color-primary)" />
+            <stop offset="1" stopColor="var(--color-primary)" stopOpacity="0" />
           </linearGradient>
         </defs>
       </svg>
@@ -88,11 +88,11 @@ function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'div'>) {
 function PlayIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <circle cx="12" cy="12" r="11.5" stroke="#D4D4D4" />
+      <circle cx="12" cy="12" r="11.5" stroke="var(--color-border)" />
       <path
         d="M9.5 14.382V9.618a.5.5 0 0 1 .724-.447l4.764 2.382a.5.5 0 0 1 0 .894l-4.764 2.382a.5.5 0 0 1-.724-.447Z"
-        fill="#A3A3A3"
-        stroke="#A3A3A3"
+        fill="var(--color-accent)"
+        stroke="var(--color-accent)"
       />
     </svg>
   )
