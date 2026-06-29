@@ -123,7 +123,6 @@ export function Header() {
                             <Button href="/login" variant="outline">
                               Log in
                             </Button>
-                            <Button href="#">Download the app</Button>
                           </div>
                         </PopoverPanel>
                       </>
@@ -136,7 +135,6 @@ export function Header() {
               <Button href="/login" variant="outline">
                 Log in
               </Button>
-              <Button href="#">Download</Button>
             </div>
           </div>
         </Container>
