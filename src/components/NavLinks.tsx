@@ -10,9 +10,9 @@ export function NavLinks() {
 
   return [
     ['Features', '/#features'],
+    ['How It Works', '/#how-it-works'],
     ['Reviews', '/#reviews'],
-    ['Pricing', '/#pricing'],
-    ['FAQs', '/#faqs'],
+    ['About', '/#about'],
   ].map(([label, href], index) => (
     <Link
       key={label}

@@ -1,98 +1,41 @@
-import { useId } from 'react'
 import Image from 'next/image'
-import clsx from 'clsx'
 
-import { AppDemo } from '@/components/AppDemo'
-import { AppStoreLink } from '@/components/AppStoreLink'
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import { PhoneFrame } from '@/components/PhoneFrame'
-import logoBbc from '@/images/logos/bbc.svg'
-import logoCbs from '@/images/logos/cbs.svg'
-import logoCnn from '@/images/logos/cnn.svg'
-import logoFastCompany from '@/images/logos/fast-company.svg'
-import logoForbes from '@/images/logos/forbes.svg'
-import logoHuffpost from '@/images/logos/huffpost.svg'
-import logoTechcrunch from '@/images/logos/techcrunch.svg'
-import logoWired from '@/images/logos/wired.svg'
+import livingRoom from '@/images/living_room.png'
 
-function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'div'>) {
-  let id = useId()
+const highlights = [
+  ['Stay on top of everything', 'Tasks, rooms, and routines in one place.'],
+  [
+    'Plan, track, and get reminders',
+    'Keep the small jobs from becoming surprises.',
+  ],
+  ['Everyone in sync', 'Share the plan with the people who live it.'],
+]
 
+function LockIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <div {...props}>
-      <svg
-        viewBox="0 0 1026 1026"
-        fill="none"
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full animate-spin-slow"
-      >
-        <path
-          d="M1025 513c0 282.77-229.23 512-512 512S1 795.77 1 513 230.23 1 513 1s512 229.23 512 512Z"
-          stroke="var(--color-border)"
-          strokeOpacity="0.7"
-        />
-        <path
-          d="M513 1025C230.23 1025 1 795.77 1 513"
-          stroke={`url(#${id}-gradient-1)`}
-          strokeLinecap="round"
-        />
-        <defs>
-          <linearGradient
-            id={`${id}-gradient-1`}
-            x1="1"
-            y1="513"
-            x2="1"
-            y2="1025"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="var(--color-primary)" />
-            <stop offset="1" stopColor="var(--color-primary)" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <svg
-        viewBox="0 0 1026 1026"
-        fill="none"
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full animate-spin-reverse-slower"
-      >
-        <path
-          d="M913 513c0 220.914-179.086 400-400 400S113 733.914 113 513s179.086-400 400-400 400 179.086 400 400Z"
-          stroke="var(--color-border)"
-          strokeOpacity="0.7"
-        />
-        <path
-          d="M913 513c0 220.914-179.086 400-400 400"
-          stroke={`url(#${id}-gradient-2)`}
-          strokeLinecap="round"
-        />
-        <defs>
-          <linearGradient
-            id={`${id}-gradient-2`}
-            x1="913"
-            y1="513"
-            x2="913"
-            y2="913"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="var(--color-primary)" />
-            <stop offset="1" stopColor="var(--color-primary)" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M6.5 8V6.5a3.5 3.5 0 1 1 7 0V8M5.5 8h9v7.5h-9V8Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
 
-function PlayIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function HighlightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <circle cx="12" cy="12" r="11.5" stroke="var(--color-border)" />
       <path
-        d="M9.5 14.382V9.618a.5.5 0 0 1 .724-.447l4.764 2.382a.5.5 0 0 1 0 .894l-4.764 2.382a.5.5 0 0 1-.724-.447Z"
-        fill="var(--color-accent)"
-        stroke="var(--color-accent)"
+        d="M8 7.5h8M8 12h8M8 16.5h5M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
@@ -100,63 +43,48 @@ function PlayIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function Hero() {
   return (
-    <div className="overflow-hidden py-20 sm:py-32 lg:pb-32 xl:pb-36">
+    <section className="overflow-hidden pt-14 pb-20 sm:pt-20 sm:pb-28 lg:pb-32">
       <Container>
-        <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
-          <div className="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
-            <h1 className="text-4xl font-medium tracking-tight text-gray-900">
-              Invest at the perfect time.
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+          <div className="relative z-10 mx-auto max-w-2xl lg:col-span-6 lg:mx-0">
+            <div className="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-semibold tracking-wide text-cyan-900 uppercase">
+              <LockIcon className="h-4 w-4" />
+              Private by design
+            </div>
+            <h1 className="mt-6 text-4xl font-medium tracking-tight text-gray-900 sm:text-6xl">
+              A home that runs smoothly. Every day.
             </h1>
             <p className="mt-6 text-lg text-gray-600">
-              By leveraging insights from our network of industry insiders,
-              you’ll know exactly when to buy to maximize profit, and exactly
-              when to sell to avoid painful losses.
+              Casa Cadence helps you manage household routines, cleaning, items,
+              and maintenance so nothing slips through the cracks.
             </p>
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
-              <AppStoreLink />
-              <Button
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                variant="outline"
-              >
-                <PlayIcon className="h-6 w-6 flex-none" />
-                <span className="ml-2.5">Watch the video</span>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button href="/register">Get started</Button>
+              <Button href="/#how-it-works" variant="outline">
+                See how it works
               </Button>
             </div>
-          </div>
-          <div className="relative mt-10 sm:mt-20 lg:col-span-5 lg:row-span-2 lg:mt-0 xl:col-span-6">
-            <BackgroundIllustration className="absolute top-4 left-1/2 h-[1026px] w-[1026px] -translate-x-1/3 mask-[linear-gradient(to_bottom,white_20%,transparent_75%)] stroke-gray-300/70 sm:top-16 sm:-translate-x-1/2 lg:-top-16 lg:ml-12 xl:-top-14 xl:ml-0" />
-            <div className="-mx-4 h-[448px] mask-[linear-gradient(to_bottom,white_60%,transparent)] px-9 sm:mx-0 lg:absolute lg:-inset-x-10 lg:-top-10 lg:-bottom-20 lg:h-auto lg:px-0 lg:pt-10 xl:-bottom-32">
-              <PhoneFrame className="mx-auto max-w-[366px]" priority>
-                <AppDemo />
-              </PhoneFrame>
-            </div>
-          </div>
-          <div className="relative -mt-4 lg:col-span-7 lg:mt-0 xl:col-span-6">
-            <p className="text-center text-sm font-semibold text-gray-900 lg:text-left">
-              As featured in
-            </p>
-            <ul
-              role="list"
-              className="mx-auto mt-8 flex max-w-xl flex-wrap justify-center gap-x-10 gap-y-8 lg:mx-0 lg:justify-start"
-            >
-              {[
-                ['Forbes', logoForbes],
-                ['TechCrunch', logoTechcrunch],
-                ['Wired', logoWired],
-                ['CNN', logoCnn, 'hidden xl:block'],
-                ['BBC', logoBbc],
-                ['CBS', logoCbs],
-                ['Fast Company', logoFastCompany],
-                ['HuffPost', logoHuffpost, 'hidden xl:block'],
-              ].map(([name, logo, className]) => (
-                <li key={name} className={clsx('flex', className)}>
-                  <Image src={logo} alt={name} className="h-8" unoptimized />
+            <ul className="mt-12 grid gap-6 text-sm text-gray-700 sm:grid-cols-3">
+              {highlights.map(([title, description]) => (
+                <li key={title}>
+                  <HighlightIcon className="h-7 w-7 text-gray-700" />
+                  <p className="mt-3 font-semibold text-gray-900">{title}</p>
+                  <p className="mt-1 text-gray-600">{description}</p>
                 </li>
               ))}
             </ul>
           </div>
+          <div className="relative mx-auto w-full max-w-xl lg:col-span-6 lg:max-w-none">
+            <div className="absolute inset-0 rounded-full bg-gray-100 blur-3xl" />
+            <Image
+              src={livingRoom}
+              alt="A calm living room with a sofa, plants, and warm wood accents."
+              className="relative mx-auto aspect-[4/5] w-full max-w-lg rounded-3xl object-cover object-center shadow-2xl shadow-gray-900/10"
+              priority
+            />
+          </div>
         </div>
       </Container>
-    </div>
+    </section>
   )
 }

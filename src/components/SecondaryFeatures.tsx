@@ -1,248 +1,91 @@
-import { useId } from 'react'
-
+import { AppDemo } from '@/components/AppDemo'
 import { Container } from '@/components/Container'
+import { PhoneFrame } from '@/components/PhoneFrame'
 
-const features = [
-  {
-    name: 'Invest any amount',
-    description:
-      'Whether it’s $1 or $1,000,000, we can put your money to work for you.',
-    icon: DeviceArrowIcon,
-  },
-  {
-    name: 'Build a balanced portfolio',
-    description:
-      'Invest in different industries to find the most opportunities to win huge.',
-    icon: DeviceCardsIcon,
-  },
-  {
-    name: 'Trade in real-time',
-    description:
-      'Get insider tips on big stock moves and act on them within seconds.',
-    icon: DeviceClockIcon,
-  },
-  {
-    name: 'Profit from your network',
-    description:
-      'Invite new insiders to get tips faster and beat even other Pocket users.',
-    icon: DeviceListIcon,
-  },
-  {
-    name: 'Encrypted and anonymized',
-    description:
-      'Cutting-edge security technology that even the NSA doesn’t know about keeps you hidden.',
-    icon: DeviceLockIcon,
-  },
-  {
-    name: 'Portfolio tracking',
-    description:
-      'Watch your investments grow exponentially, leaving other investors in the dust.',
-    icon: DeviceChartIcon,
-  },
+const workflowItems = [
+  'Calendar and timeline view',
+  'Smart reminders',
+  'Photos, notes, and docs',
+  'Works on all your devices',
 ]
 
-function DeviceArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+type TrustItem = [
+  label: string,
+  Icon: (props: React.ComponentPropsWithoutRef<'svg'>) => React.ReactNode,
+]
+
+const trustItems: Array<TrustItem> = [
+  ['Family-first', HeartIcon],
+  ['Privacy focused', LockIcon],
+  ['Reliable', ShieldIcon],
+  ['Built for real homes', HomeIcon],
+]
+
+function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z"
-        fill="var(--color-text-secondary, var(--color-gray-500))"
-      />
-      <path
-        d="M12 25l8-8m0 0h-6m6 0v6"
-        stroke="var(--color-text-primary, var(--color-gray-900))"
-        strokeWidth={2}
+        d="m5 10 3 3 7-7"
+        stroke="currentColor"
+        strokeWidth="1.8"
         strokeLinecap="round"
-      />
-      <circle
-        cx={16}
-        cy={16}
-        r={16}
-        fill="var(--color-accent)"
-        fillOpacity={0.2}
+        strokeLinejoin="round"
       />
     </svg>
   )
 }
 
-function DeviceCardsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  let id = useId()
-
+function HeartIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z"
-        fill="var(--color-text-secondary, var(--color-gray-500))"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 13a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H10a1 1 0 01-1-1v-2zm0 6a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H10a1 1 0 01-1-1v-2zm1 5a1 1 0 00-1 1v2a1 1 0 001 1h12a1 1 0 001-1v-2a1 1 0 00-1-1H10z"
-        fill={`url(#${id}-gradient)`}
-      />
-      <rect
-        x={9}
-        y={6}
-        width={14}
-        height={4}
-        rx={1}
-        fill="var(--color-text-primary, var(--color-gray-900))"
-      />
-      <circle
-        cx={16}
-        cy={16}
-        r={16}
-        fill="var(--color-accent)"
-        fillOpacity={0.2}
-      />
-      <defs>
-        <linearGradient
-          id={`${id}-gradient`}
-          x1={16}
-          y1={12}
-          x2={16}
-          y2={28}
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="var(--color-text-secondary, var(--color-gray-500))" />
-          <stop
-            offset={1}
-            stopColor="var(--color-text-secondary, var(--color-gray-500))"
-            stopOpacity={0}
-          />
-        </linearGradient>
-      </defs>
-    </svg>
-  )
-}
-
-function DeviceClockIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
-      <circle
-        cx={16}
-        cy={16}
-        r={16}
-        fill="var(--color-accent)"
-        fillOpacity={0.2}
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M5 4a4 4 0 014-4h14a4 4 0 014 4v10h-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9a2 2 0 00-2 2v24a2 2 0 002 2h5v2H9a4 4 0 01-4-4V4z"
-        fill="var(--color-text-secondary, var(--color-gray-500))"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M24 32a8 8 0 100-16 8 8 0 000 16zm1-8.414V19h-2v5.414l4 4L28.414 27 25 23.586z"
-        fill="var(--color-text-primary, var(--color-gray-900))"
+        d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
 }
 
-function DeviceListIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function LockIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z"
-        fill="var(--color-text-secondary, var(--color-gray-500))"
-      />
-      <circle
-        cx={11}
-        cy={14}
-        r={2}
-        fill="var(--color-text-primary, var(--color-gray-900))"
-      />
-      <circle
-        cx={11}
-        cy={20}
-        r={2}
-        fill="var(--color-text-primary, var(--color-gray-900))"
-      />
-      <circle
-        cx={11}
-        cy={26}
-        r={2}
-        fill="var(--color-text-primary, var(--color-gray-900))"
-      />
-      <path
-        d="M16 14h6M16 20h6M16 26h6"
-        stroke="var(--color-text-secondary, var(--color-gray-500))"
-        strokeWidth={2}
-        strokeLinecap="square"
-      />
-      <circle
-        cx={16}
-        cy={16}
-        r={16}
-        fill="var(--color-accent)"
-        fillOpacity={0.2}
+        d="M7 10V8a5 5 0 0 1 10 0v2m-11 0h12v10H6V10Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
 }
 
-function DeviceLockIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function ShieldIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
-      <circle
-        cx={16}
-        cy={16}
-        r={16}
-        fill="var(--color-accent)"
-        fillOpacity={0.2}
-      />
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M5 4a4 4 0 014-4h14a4 4 0 014 4v10h-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9a2 2 0 00-2 2v24a2 2 0 002 2h5v2H9a4 4 0 01-4-4V4z"
-        fill="var(--color-text-secondary, var(--color-gray-500))"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M18 19.5a3.5 3.5 0 117 0V22a2 2 0 012 2v6a2 2 0 01-2 2h-7a2 2 0 01-2-2v-6a2 2 0 012-2v-2.5zm2 2.5h3v-2.5a1.5 1.5 0 00-3 0V22z"
-        fill="var(--color-text-primary, var(--color-gray-900))"
+        d="M12 21s7-3.5 7-10V5l-7-2-7 2v6c0 6.5 7 10 7 10Zm-3-9 2 2 4-5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
 }
 
-function DeviceChartIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function HomeIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z"
-        fill="var(--color-text-secondary, var(--color-gray-500))"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M23 13.838V26a2 2 0 01-2 2H11a2 2 0 01-2-2V15.65l2.57 3.212a1 1 0 001.38.175L15.4 17.2a1 1 0 011.494.353l1.841 3.681c.399.797 1.562.714 1.843-.13L23 13.837z"
-        fill="var(--color-text-primary, var(--color-gray-900))"
-      />
-      <path
-        d="M10 12h12"
-        stroke="var(--color-text-secondary, var(--color-gray-500))"
-        strokeWidth={2}
-        strokeLinecap="square"
-      />
-      <circle
-        cx={16}
-        cy={16}
-        r={16}
-        fill="var(--color-accent)"
-        fillOpacity={0.2}
+        d="m4 11 8-7 8 7v9h-5v-6H9v6H4v-9Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
@@ -251,37 +94,54 @@ function DeviceChartIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export function SecondaryFeatures() {
   return (
     <section
-      id="secondary-features"
-      aria-label="Features for building a portfolio"
-      className="py-20 sm:py-32"
+      id="how-it-works"
+      className="border-y border-gray-200 bg-gray-100 py-20 sm:py-28"
     >
       <Container>
-        <div className="mx-auto max-w-2xl sm:text-center">
-          <h2 className="text-3xl font-medium tracking-tight text-gray-900">
-            Now is the time to build your portfolio.
-          </h2>
-          <p className="mt-2 text-lg text-gray-600">
-            With typical market returns, you have to start young to secure your
-            future. With Pocket, it’s never too late to build your nest egg.
-          </p>
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="mx-auto max-w-xl lg:col-span-5 lg:mx-0">
+            <p className="text-sm font-semibold tracking-wide text-cyan-900 uppercase">
+              Designed for real life
+            </p>
+            <h2 className="mt-4 text-3xl font-medium tracking-tight text-gray-900 sm:text-4xl">
+              Your home. Organized.
+            </h2>
+            <p className="mt-4 text-lg text-gray-600">
+              A simple, beautiful space to plan your home and life with clarity.
+            </p>
+            <ul className="mt-8 space-y-4 text-sm text-gray-700">
+              {workflowItems.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <CheckIcon className="mt-0.5 h-5 w-5 flex-none text-cyan-900" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="relative mx-auto w-full max-w-[366px] lg:col-span-7">
+            <div className="absolute inset-8 rounded-full bg-white blur-3xl" />
+            <PhoneFrame className="relative mx-auto w-full max-w-[366px]">
+              <AppDemo />
+            </PhoneFrame>
+          </div>
         </div>
-        <ul
-          role="list"
-          className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 text-sm sm:mt-20 sm:grid-cols-2 md:gap-y-10 lg:max-w-none lg:grid-cols-3"
-        >
-          {features.map((feature) => (
-            <li
-              key={feature.name}
-              className="rounded-2xl border border-gray-200 p-8"
-            >
-              <feature.icon className="h-8 w-8" />
-              <h3 className="mt-6 font-semibold text-gray-900">
-                {feature.name}
-              </h3>
-              <p className="mt-2 text-gray-700">{feature.description}</p>
-            </li>
-          ))}
-        </ul>
+
+        <div className="mt-16 border-t border-gray-200 pt-10">
+          <p className="text-center text-sm font-semibold text-gray-900">
+            Trusted by households that like things to run smoothly.
+          </p>
+          <ul className="mt-8 grid grid-cols-2 gap-6 text-sm text-gray-700 sm:grid-cols-4">
+            {trustItems.map(([label, Icon]) => (
+              <li
+                key={label}
+                className="flex items-center justify-center gap-3"
+              >
+                <Icon className="h-6 w-6 text-gray-600" />
+                {label}
+              </li>
+            ))}
+          </ul>
+        </div>
       </Container>
     </section>
   )
