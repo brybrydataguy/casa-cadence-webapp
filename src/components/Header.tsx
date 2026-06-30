@@ -120,9 +120,13 @@ export function Header() {
                             <MobileNavLink href="/#about">About</MobileNavLink>
                           </div>
                           <div className="mt-8 flex flex-col gap-4">
+                            <Button href="/dashboard" variant="outline">
+                              Dashboard
+                            </Button>
                             <Button href="/login" variant="outline">
                               Log in
                             </Button>
+                            <Button href="/signup">Sign up</Button>
                           </div>
                         </PopoverPanel>
                       </>
@@ -132,9 +136,13 @@ export function Header() {
               )}
             </Popover>
             <div className="flex items-center gap-6 max-lg:hidden">
+              <Button href="/dashboard" variant="outline">
+                Dashboard
+              </Button>
               <Button href="/login" variant="outline">
                 Log in
               </Button>
+              <Button href="/signup">Sign up</Button>
             </div>
           </div>
         </Container>

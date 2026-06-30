@@ -1,29 +1,55 @@
 import { type Metadata } from 'next'
 import Link from 'next/link'
 
+import { signInWithGoogle, signUpWithPassword } from '@/app/(auth)/actions'
 import { AuthLayout } from '@/components/AuthLayout'
 import { Button } from '@/components/Button'
-import { SelectField, TextField } from '@/components/Fields'
+import { TextField } from '@/components/Fields'
 
 export const metadata: Metadata = {
   title: 'Sign Up',
 }
 
-export default function Register() {
+type SearchParams = Promise<Record<string, string | string[] | undefined>>
+
+function getParam(
+  params: Record<string, string | string[] | undefined>,
+  key: string,
+) {
+  const value = params[key]
+
+  return typeof value === 'string' ? value : undefined
+}
+
+export default async function Register({
+  searchParams,
+}: {
+  searchParams?: SearchParams
+}) {
+  const params = searchParams ? await searchParams : {}
+  const error = getParam(params, 'error')
+  const next = getParam(params, 'next') ?? '/dashboard'
+
   return (
     <AuthLayout
-      title="Sign up for an account"
+      title="Create your Casa Cadence account"
       subtitle={
         <>
           Already registered?{' '}
-          <Link href="/login" className="text-cyan-600">
+          <Link href="/login" className="font-semibold text-cyan-600">
             Sign in
           </Link>{' '}
           to your account.
         </>
       }
     >
-      <form>
+      <form action={signUpWithPassword}>
+        <input type="hidden" name="next" value={next} />
+        {error && (
+          <p className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+            {error}
+          </p>
+        )}
         <div className="grid grid-cols-2 gap-6">
           <TextField
             label="First name"
@@ -55,19 +81,15 @@ export default function Register() {
             autoComplete="new-password"
             required
           />
-          <SelectField
-            className="col-span-full"
-            label="How did you hear about us?"
-            name="referral_source"
-          >
-            <option>AltaVista search</option>
-            <option>Super Bowl commercial</option>
-            <option>Our route 34 city bus ad</option>
-            <option>The “Never Use This” podcast</option>
-          </SelectField>
         </div>
         <Button type="submit" color="cyan" className="mt-8 w-full">
-          Get started today
+          Create account
+        </Button>
+      </form>
+      <form action={signInWithGoogle} className="mt-4">
+        <input type="hidden" name="next" value={next} />
+        <Button type="submit" variant="outline" color="gray" className="w-full">
+          Continue with Google
         </Button>
       </form>
     </AuthLayout>

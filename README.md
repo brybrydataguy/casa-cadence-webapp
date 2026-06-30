@@ -1,35 +1,84 @@
-# Pocket
+# Casa Cadence
 
-Pocket is a [Tailwind Plus](https://tailwindcss.com/plus) site template built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
+Casa Cadence is a household care app for keeping cleaning, maintenance, and home routines from slipping through the cracks. The app is built with Next.js App Router and Tailwind CSS.
 
-## Getting started
+## Getting Started
 
-To get started with this template, first install the npm dependencies:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Next, run the development server:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Customizing
+## Common Commands
 
-You can start editing this template by modifying the files in the `/src` folder. The site will auto-update as you edit these files.
+```bash
+npm run dev
+npm run lint
+npm run build
+npm run db:reset
+```
+
+## Project Shape
+
+- App routes live in `src/app`.
+- Public marketing routes live in `src/app/(main)`.
+- Authentication routes and callbacks live in `src/app/(auth)`.
+- Protected Casa app routes live in `src/app/(casa)`.
+- Shared UI lives in `src/components`.
+- Brand images live in `src/images`.
+- Tailwind theme tokens live in `src/styles/tailwind.css`.
+- Design reference lives at `docs/design_system.png`.
+
+## Authentication
+
+Supabase authentication is planned for signup, login, Google OAuth, protected dashboard access, and local email testing. See `docs/auth.md` for the focused auth setup and verification plan.
+
+When Supabase is wired in, local development will use:
+
+```bash
+npx supabase start
+npx supabase status -o env
+npm run db:reset
+npm run dev
+```
+
+## Deployment
+
+The app is intended to deploy on Vercel from Git. Database changes should roll out through Supabase's GitHub integration so production merges apply migrations and pull requests can get preview databases.
+
+See `docs/deployment.md` for:
+
+- Vercel deployment setup.
+- Required Supabase environment variables.
+- How to create and verify migrations.
+- How Supabase GitHub integration applies migrations.
+- How preview branches should pair with Vercel preview URLs.
+
+## Verification
+
+Before wrapping source or styling changes, run:
+
+```bash
+npm run lint
+```
+
+For app-level changes, also run:
+
+```bash
+npm run build
+```
+
+For user-facing UI changes, load the affected route in a browser and check the relevant viewport.
 
 ## License
 
-This site template is a commercial product and is licensed under the [Tailwind Plus license](https://tailwindcss.com/plus/license).
-
-## Learn more
-
-To learn more about the technologies used in this site template, see the following resources:
-
-- [Tailwind CSS](https://tailwindcss.com/docs) - the official Tailwind CSS documentation
-- [Next.js](https://nextjs.org/docs) - the official Next.js documentation
-- [Headless UI](https://headlessui.dev) - the official Headless UI documentation
+This project was adapted from a Tailwind Plus template. Follow the applicable Tailwind Plus license for template-derived code.
