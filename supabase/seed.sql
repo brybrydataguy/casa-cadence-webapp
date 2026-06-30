@@ -27,7 +27,7 @@ with seeded_user as (
     'authenticated',
     'authenticated',
     'rosy@casacadence.com',
-    crypt('password', gen_salt('bf')),
+    crypt('Password123!', gen_salt('bf')),
     now(),
     '',
     '',
