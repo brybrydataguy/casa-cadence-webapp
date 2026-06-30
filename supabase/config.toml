@@ -13,7 +13,7 @@ major_version = 17
 [studio]
 port = 55323
 
-[local_smtp]
+[inbucket]
 enabled = true
 port = 55324
 smtp_port = 55325
@@ -50,4 +50,5 @@ port = 55327
 backend = "postgres"
 
 [db.seed]
+enabled = true
 sql_paths = ["./seed.sql"]

@@ -9,6 +9,7 @@ Deploy the Next.js app with Vercel and deploy Supabase schema changes through Su
 - Vercel deploys the Next.js app from Git.
 - Supabase GitHub integration applies migrations from `supabase/migrations`.
 - Supabase Branching creates migrated preview databases for pull requests when enabled.
+- Supabase Branching can also load configured seed data from `supabase/seed.sql` when `[db.seed]` is enabled in `supabase/config.toml`.
 
 ## Vercel App Deploys
 
@@ -41,7 +42,7 @@ Recommended baseline:
 - Supabase changes only is enabled so preview branches are created only when Supabase files change.
 - Branch limit is kept small while the app is early.
 
-This setup lets pull requests that include migrations get a matching preview database for the Vercel preview URL.
+This setup lets pull requests that include Supabase changes get a matching preview database for the Vercel preview URL.
 
 ## Migration Workflow
 
@@ -79,6 +80,29 @@ Use the dashboard integration as the normal deployment path:
 When a pull request changes files under `supabase/`, Supabase should create or update a preview branch and apply pending migrations there. When `main` receives merged migration files, Supabase applies those changes to the production database.
 
 Only one person or one automation should push migrations to a target Supabase project at a time. Supabase applies pending migration files in timestamp order.
+
+## Preview Seeds And Auth Configuration
+
+Casa Cadence keeps local and preview seed data in `supabase/seed.sql`. The seed is enabled explicitly in `supabase/config.toml`:
+
+```toml
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+```
+
+Keep preview seed SQL idempotent so repeated preview branch setup can run safely. Test users are acceptable for preview and local development, but do not add seed rows that should never appear in a production database unless the production rollout path excludes seed execution.
+
+Authentication provider settings for preview branches should also live in `supabase/config.toml`. For Google OAuth, the provider block enables the provider, while the client ID and secret come from environment-backed values:
+
+```toml
+[auth.external.google]
+enabled = true
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+```
+
+If a preview branch returns `Unsupported provider: provider is not enabled`, the preview Supabase branch did not receive or apply this auth provider configuration. Push the current `supabase/config.toml`, confirm the Supabase GitHub integration ran for the PR, and recreate or redeploy the Supabase preview branch if it was created before the config was fixed.
 
 ## Preview URL Contract
 
