@@ -59,7 +59,10 @@ export function Hero() {
               and maintenance so nothing slips through the cracks.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/register">Get started</Button>
+              <Button href="/signup">Get started</Button>
+              <Button href="/dashboard" variant="outline">
+                Open dashboard
+              </Button>
               <Button href="/#how-it-works" variant="outline">
                 See how it works
               </Button>

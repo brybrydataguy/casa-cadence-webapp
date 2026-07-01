@@ -22,8 +22,8 @@ const footerGroups = [
   {
     title: 'Legal',
     links: [
-      ['Privacy', '#'],
-      ['Terms', '#'],
+      ['Privacy', '/privacy'],
+      ['Terms', '/terms'],
     ],
   },
 ]
