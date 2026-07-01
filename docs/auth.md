@@ -60,6 +60,39 @@ Studio: http://127.0.0.1:55323
 Email inbox: http://127.0.0.1:55324
 ```
 
+## Local Phone OTP Testing
+
+Phone OTP login is enabled in `supabase/config.toml` for local development. The
+local config includes a Twilio provider block plus a deterministic test OTP so
+the flow can be verified without sending a real SMS:
+
+```text
+Phone: +15555550100
+Code: 123456
+```
+
+For local test OTP, the Twilio env vars can be placeholders. Use real values
+when testing actual SMS delivery:
+
+```bash
+SUPABASE_AUTH_SMS_TWILIO_ACCOUNT_SID=
+SUPABASE_AUTH_SMS_TWILIO_MESSAGE_SERVICE_SID=
+SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN=
+```
+
+Flow:
+
+- Submit the phone number on `/login`.
+- Supabase sends or records the SMS OTP and the app stores the pending phone
+  number in an HTTP-only, short-lived cookie.
+- Submit the 6-digit code on `/login`.
+- A successful verification creates the normal Supabase session and redirects
+  to `/dashboard`.
+
+Hosted Supabase projects still need phone authentication enabled on the Auth
+Providers page and an SMS provider such as Twilio, MessageBird, Vonage, or
+TextLocal configured before real phone delivery works.
+
 ## Google OAuth
 
 Google auth should be configured through Supabase provider settings. Keep provider secrets in local environment or Supabase config placeholders, never in source code.
@@ -79,6 +112,7 @@ Implement and verify these behaviors:
 
 - Successful email/password signup creates a Supabase user and lands on `/dashboard`.
 - Successful email/password login lands on `/dashboard`.
+- Phone OTP login sends an SMS code and verified codes land on `/dashboard`.
 - Google sign-in starts the Supabase OAuth flow.
 - Visiting `/dashboard` while signed out redirects to `/login?next=/dashboard`.
 - Logging out clears the session and returns to `/login` or `/`.
@@ -102,6 +136,7 @@ Before wrapping auth work:
 - `.env.local` contains the local Supabase public URL and anon key.
 - Signup works in the browser.
 - Login redirects to `/dashboard`.
+- Phone OTP works locally with `+15555550100` and code `123456`.
 - Signed-out `/dashboard` redirects to login.
 - Logout clears the session.
 - Google auth begins the provider flow when configured.
@@ -112,4 +147,6 @@ Before wrapping auth work:
 - If Supabase fails to start, check that Docker Desktop is running.
 - If auth calls fail immediately, confirm `.env.local` matches `npx supabase status -o env`.
 - If Google OAuth fails, confirm the provider is enabled and the callback URL matches the active Supabase environment.
+- If phone OTP fails locally, confirm the test phone/code above and restart the Supabase stack after changing `supabase/config.toml`.
+- If hosted phone OTP does not send SMS, confirm phone auth and an SMS provider are enabled in the Supabase dashboard.
 - If signup succeeds but login behavior is confusing, check whether email confirmation is required.

@@ -104,6 +104,25 @@ secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
 
 If a preview branch returns `Unsupported provider: provider is not enabled`, the preview Supabase branch did not receive or apply this auth provider configuration. Push the current `supabase/config.toml`, confirm the Supabase GitHub integration ran for the PR, and recreate or redeploy the Supabase preview branch if it was created before the config was fixed.
 
+Phone OTP requires two layers:
+
+- App code calls Supabase Auth with `signInWithOtp({ phone })` and `verifyOtp({ type: 'sms' })`.
+- Supabase config or dashboard settings must enable phone auth and an SMS provider.
+
+This repo enables the Twilio provider through env-backed config:
+
+```toml
+[auth.sms.twilio]
+enabled = true
+account_sid = "env(SUPABASE_AUTH_SMS_TWILIO_ACCOUNT_SID)"
+message_service_sid = "env(SUPABASE_AUTH_SMS_TWILIO_MESSAGE_SERVICE_SID)"
+auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
+```
+
+Set those values in local, preview, and production Supabase environments before testing real SMS delivery.
+
+The local config uses `[auth.sms.test_otp]` for deterministic development. Do not treat that local test OTP as proof that production SMS delivery is configured.
+
 ## Preview URL Contract
 
 For pull requests with database changes:

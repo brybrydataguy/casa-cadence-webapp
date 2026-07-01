@@ -1,9 +1,11 @@
 'use server'
 
-import { headers } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/lib/supabase/server'
+
+const PHONE_OTP_COOKIE = 'casa_phone_otp'
 
 async function getOrigin() {
   const headerStore = await headers()
@@ -35,10 +37,26 @@ function getNextPath(formData: FormData) {
   return next
 }
 
+function normalizePhone(value: string) {
+  const normalized = value.replace(/[\s().-]/g, '')
+
+  if (!/^\+[1-9]\d{6,14}$/.test(normalized)) {
+    return ''
+  }
+
+  return normalized
+}
+
 function redirectWithAuthError(path: string, message: string): never {
   const params = new URLSearchParams({ error: message })
 
   redirect(`${path}?${params.toString()}`)
+}
+
+function redirectToLogin(params: Record<string, string>): never {
+  const searchParams = new URLSearchParams(params)
+
+  redirect(`/login?${searchParams.toString()}`)
 }
 
 export async function signInWithPassword(formData: FormData) {
@@ -55,6 +73,87 @@ export async function signInWithPassword(formData: FormData) {
   if (error) {
     redirectWithAuthError('/login', 'We could not sign you in with those details.')
   }
+
+  redirect(next)
+}
+
+export async function sendPhoneOtp(formData: FormData) {
+  const next = getNextPath(formData)
+  const phone = normalizePhone(getString(formData, 'phone'))
+
+  if (!phone) {
+    redirectToLogin({
+      error: 'Enter a phone number in international format, like +15551234567.',
+      next,
+    })
+  }
+
+  const supabase = await createClient()
+  const { error } = await supabase.auth.signInWithOtp({ phone })
+
+  if (error) {
+    redirectToLogin({
+      error: 'We could not send a verification code to that phone number.',
+      next,
+    })
+  }
+
+  const cookieStore = await cookies()
+  cookieStore.set(PHONE_OTP_COOKIE, phone, {
+    httpOnly: true,
+    maxAge: 10 * 60,
+    path: '/',
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  })
+
+  redirectToLogin({
+    message: 'Enter the verification code sent to your phone.',
+    next,
+    phone_otp: 'sent',
+  })
+}
+
+export async function verifyPhoneOtp(formData: FormData) {
+  const next = getNextPath(formData)
+  const token = getString(formData, 'token').replace(/\s/g, '')
+  const cookieStore = await cookies()
+  const phone = cookieStore.get(PHONE_OTP_COOKIE)?.value
+
+  if (!phone) {
+    redirectToLogin({
+      error: 'Request a new phone verification code.',
+      next,
+    })
+  }
+
+  if (!/^\d{6}$/.test(token)) {
+    redirectToLogin({
+      error: 'Enter the 6-digit verification code.',
+      next,
+      phone_otp: 'sent',
+    })
+  }
+
+  const supabase = await createClient()
+  const { error } = await supabase.auth.verifyOtp({
+    phone,
+    token,
+    type: 'sms',
+  })
+
+  if (error) {
+    redirectToLogin({
+      error: 'That verification code is invalid or expired.',
+      next,
+      phone_otp: 'sent',
+    })
+  }
+
+  cookieStore.set(PHONE_OTP_COOKIE, '', {
+    maxAge: 0,
+    path: '/',
+  })
 
   redirect(next)
 }
