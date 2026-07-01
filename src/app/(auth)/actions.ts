@@ -15,10 +15,15 @@ async function getOrigin() {
     return origin
   }
 
-  const host = headerStore.get('host') ?? 'localhost:3000'
+  const host =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.NEXT_PUBLIC_VERCEL_URL ??
+    process.env.VERCEL_URL ??
+    headerStore.get('host') ??
+    'localhost:3000'
   const protocol = host.includes('localhost') ? 'http' : 'https'
 
-  return `${protocol}://${host}`
+  return host.startsWith('http') ? host : `${protocol}://${host}`
 }
 
 function getString(formData: FormData, key: string) {

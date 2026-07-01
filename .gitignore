@@ -21,6 +21,10 @@ pnpm-debug.log*
 # local env files
 .env
 .env*.local
+.env.keys
+supabase/.env.keys
+supabase/.env.local
+supabase/.temp/
 
 # vercel
 .vercel

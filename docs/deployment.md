@@ -123,6 +123,35 @@ Set those values in local, preview, and production Supabase environments before 
 
 The local config uses `[auth.sms.test_otp]` for deterministic development. Do not treat that local test OTP as proof that production SMS delivery is configured.
 
+### Preview Branch Secrets
+
+Do not commit the raw Google client secret. For Supabase preview branches, keep the `env(...)` references in `supabase/config.toml` and provide encrypted preview secrets with Dotenvx.
+
+Create or update the preview secret file from the repo root:
+
+```bash
+npx @dotenvx/dotenvx set SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID "your-google-client-id.apps.googleusercontent.com" -f supabase/.env.preview
+npx @dotenvx/dotenvx set SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET "your-google-client-secret" -f supabase/.env.preview
+```
+
+Then send the generated decryption key to Supabase Branching:
+
+```bash
+npx supabase secrets set --env-file supabase/.env.keys
+```
+
+Commit these files:
+
+- `supabase/config.toml`
+- `supabase/.env.preview`
+
+Do not commit these files:
+
+- `supabase/.env.keys`
+- Any unencrypted file containing Google OAuth secrets
+
+If the preview dashboard shows the literal value `env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)` in the Google provider field, the preview branch did not receive the matching preview secret. Re-run the secret setup above, push the committed `supabase/.env.preview`, and recreate or redeploy the affected preview branch.
+
 ## Preview URL Contract
 
 For pull requests with database changes:
@@ -130,6 +159,7 @@ For pull requests with database changes:
 - Vercel creates a preview app URL.
 - Supabase creates a preview database branch and applies migrations.
 - The preview app must receive the matching preview Supabase URL and anon key.
+- Auth actions should build callback URLs from the current request origin or Vercel deployment URL so preview URLs return to the matching preview app.
 
 The exact environment variable handoff between Supabase Branching and Vercel should be verified during the first integration test. Until that is confirmed, do not claim a preview URL is using the preview database just because both preview systems exist.
 
